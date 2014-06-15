@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class NearbyVenuesViewController;
+@class FSVenue;
+
+@protocol NearbyVenuesViewControllerDelegate <NSObject>
+
+- (void)nearbyVenuesViewController:(NearbyVenuesViewController *)nearbyVenuesViewController didSelectVenue:(FSVenue *)venue;
+
+@end
+
 @interface NearbyVenuesViewController :UITableViewController
+
+@property (weak, nonatomic) id <NearbyVenuesViewControllerDelegate> venueDelegate;
 
 @end

@@ -151,28 +151,9 @@
 
 #pragma mark - Table view delegate
 
-- (void)checkin {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    CheckinViewController *checkin = [storyboard instantiateViewControllerWithIdentifier:@"CheckinVC"];
-    checkin.venue = self.selected;
-    [self.navigationController pushViewController:checkin animated:YES];
-}
-
 - (void)userDidSelectVenue {
-    if ([Foursquare2 isAuthorized]) {
-        [self checkin];
-	} else {
-        [Foursquare2 authorizeWithCallback:^(BOOL firstSuccess, id firstResult) {
-            if (firstSuccess) {
-				[Foursquare2  userGetDetail:@"self"
-                                   callback:^(BOOL secondSuccess, id secondResult){
-                                       if (secondSuccess) {
-                                           [self updateRightBarButtonStatus];
-                                           [self checkin];
-                                       }
-                                   }];
-			}
-        }];
+    if ([self.venueDelegate respondsToSelector:@selector(nearbyVenuesViewController:didSelectVenue:)]) {
+        [self.venueDelegate nearbyVenuesViewController:self didSelectVenue:self.selected];
     }
 }
 
