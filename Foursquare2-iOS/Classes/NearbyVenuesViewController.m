@@ -38,15 +38,6 @@
     [self.locationManager startUpdatingLocation];
 }
 
-- (void)updateRightBarButtonStatus {
-    self.navigationItem.rightBarButtonItem.enabled = [Foursquare2 isAuthorized];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self updateRightBarButtonStatus];
-}
-
 - (void)removeAllAnnotationExceptOfCurrentUser {
     NSMutableArray *annForRemove = [[NSMutableArray alloc] initWithArray:self.mapView.annotations];
     if ([self.mapView.annotations.lastObject isKindOfClass:[MKUserLocation class]]) {
@@ -181,6 +172,12 @@
         
     }
     return pin;
+}
+
+- (IBAction)closeButtonPressed {
+    if ([self.venueDelegate respondsToSelector:@selector(dismissNearbyVenuesViewController:)]) {
+        [self.venueDelegate dismissNearbyVenuesViewController:self];
+    }
 }
 
 - (void)checkinButton {

@@ -14,6 +14,7 @@
 @protocol NearbyVenuesViewControllerDelegate <NSObject>
 
 - (void)nearbyVenuesViewController:(NearbyVenuesViewController *)nearbyVenuesViewController didSelectVenue:(FSVenue *)venue;
+- (void)dismissNearbyVenuesViewController:(NearbyVenuesViewController *)nearbyVenuesViewController;
 
 @end
 
