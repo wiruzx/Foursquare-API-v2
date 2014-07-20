@@ -7,13 +7,17 @@ methods to construct request with path and parameters, but you need to read onli
 constract NSDictionary with parameters on your own. This library provide concrete, ready-to-use method like this:
 
 
-    + (NSOperation *)createCheckinAtVenue:(NSString *)venueID
-                                    venue:(NSString *)venue
-                                    shout:(NSString *)shout
-                                 callback:(Foursquare2Callback)callback;
-                        
-    + (NSOperation *)userGetDetail:(NSString *)userID
-                          callback:(Foursquare2Callback)callback;
+```objc
+
++ (NSOperation *)createCheckinAtVenue:(NSString *)venueID
+                                venue:(NSString *)venue
+                                shout:(NSString *)shout
+                             callback:(Foursquare2Callback)callback;
+
++ (NSOperation *)userGetDetail:(NSString *)userID
+                      callback:(Foursquare2Callback)callback;
+
+```
 
 Don't be scary of NSOperation:). Almost all the time you don't need to use them. But it could be very helpfull
 if you want to have more control and cancel operations. Checkout SearchViewController.m as example.
@@ -38,20 +42,23 @@ CFBundleURLTypes -> CFBundleURLName -> CFBundleURLSchemes -> {app_id}
 3. Add handleURL: method in application:openURL:sourceApplication:annotation: method.
 
 
-        - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-            return [Foursquare2 handleURL:url];
-        }
+```objc
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [Foursquare2 handleURL:url];
+}
+```
 
 4. Setup Foursquare to use your credentials
 
 
-        - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-            [Foursquare2 setupFoursquareWithClientId:YOUR_KEY
-                              secret:YOUR_SECRET
-                         callbackURL:YOUR_CALLBACK_URL];
-        }
- 
+```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [Foursquare2 setupFoursquareWithClientId:YOUR_KEY
+                      secret:YOUR_SECRET
+                 callbackURL:YOUR_CALLBACK_URL];
+}
+```
 
     
 
@@ -60,15 +67,17 @@ CFBundleURLTypes -> CFBundleURLName -> CFBundleURLSchemes -> {app_id}
 ###Useful tips
 1. How to get sw and ne from MKMapView?
 
-        CGPoint swPoint = CGPointMake(mapView.bounds.origin.x, mapView.bounds.origin.y+ mapView.bounds.size.height);
-        CGPoint nePoint = CGPointMake((mapView.bounds.origin.x + mapView.bounds.size.width), (mapView.bounds.origin.y));
-    
-        //Then transform those point into lat,lng values
-        CLLocationCoordinate2D swCoord;
-        swCoord = [mapView convertPoint:swPoint toCoordinateFromView:mapView];
-    
-        CLLocationCoordinate2D neCoord;
-        neCoord = [mapView convertPoint:nePoint toCoordinateFromView:mapView];
+```objc
+CGPoint swPoint = CGPointMake(mapView.bounds.origin.x, mapView.bounds.origin.y+ mapView.bounds.size.height);
+CGPoint nePoint = CGPointMake((mapView.bounds.origin.x + mapView.bounds.size.width), (mapView.bounds.origin.y));
+
+//Then transform those point into lat,lng values
+CLLocationCoordinate2D swCoord;
+swCoord = [mapView convertPoint:swPoint toCoordinateFromView:mapView];
+
+CLLocationCoordinate2D neCoord;
+neCoord = [mapView convertPoint:nePoint toCoordinateFromView:mapView];
+```
 
 2. Rate limits.
     Some Foursquare API methods don't require authentication (such as venueSearch methods). 
@@ -92,3 +101,4 @@ I got blue pin [here](http://graphicclouds.com/map-pin-icons/).
 ###Cocoapod
 
 pod 'Foursquare-API-v2'
+
