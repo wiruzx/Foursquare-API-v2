@@ -35,6 +35,7 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.delegate = self;
+    self.mapView.showsUserLocation = YES;
     [self.locationManager startUpdatingLocation];
 }
 
